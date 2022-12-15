@@ -11,7 +11,7 @@ After this you should see a file *.out* with the name of the algorithm, in this 
     ```./dijkstra.out -h```
 
 <br>
-<a href="https://ibb.co/PtJMkH6"><img src="https://i.ibb.co/x3wYZT7/mBbhT9w.png" alt="mBbhT9w" border="0"></a><br /><a target='_blank' href='https://pt-br.imgbb.com/'></a>
+<img src="images/img1.png">
 <br>
 You should see a guide on how to use, note that, this flags are optional, so you can execute the script without any flag and type the graph manually if you want, or execute with other ways with you're more familiar with command lines. Here, I will assume that you want to use the script with the command lines, so lets take a view on how to use:
 
@@ -33,8 +33,8 @@ You should see a guide on how to use, note that, this flags are optional, so you
   
 
 ### Some examples
-<a href="https://ibb.co/XyHnGy5"><img src="https://i.ibb.co/9wPxdw4/lpPizN6.png" alt="lpPizN6" border="0"></a>
+<img src="images/img2.png">
 
-<a href="https://ibb.co/92zJpJb"><img src="https://i.ibb.co/CvNqwqb/XQHVF3V.png" alt="XQHVF3V" border="0"></a>
+<img src="images/img3.png">
 
-<a href="https://ibb.co/HHPQxfx"><img src="https://i.ibb.co/NyNzmdm/fVOykYl.png" alt="fVOykYl" border="0"></a>
+<img src="images/img4.png">
