@@ -7,6 +7,24 @@ using namespace std;
 
 int INFINITE = 1e9;
 
+void printMST(vector<vector<pair<int,int>>> &adj, int n, int parent[]){
+    cout << "Vertice -> Vertice" << endl; 
+    int total = 0; 
+    for (int i = 1; i < n; ++i)
+    {
+        printf("%d -> %d\n", parent[i], i);
+        int len = adj[parent[i]].size();
+        for (int j = 0; j < len; j++)
+        {
+            if (adj[parent[i]][j].first == i){
+                total += adj[parent[i]][j].second;
+            }
+        }
+    }
+    cout << "Total Minimum Cost:" << total << endl;
+}
+
+
 void Prim(vector<vector<pair<int,int>>> &adj, int s){
     int n = adj.size();
     int parent[n];
@@ -29,11 +47,6 @@ void Prim(vector<vector<pair<int,int>>> &adj, int s){
         int u = pq.top().second;
         pq.pop();
 
-
-        if (inMST[u] == true){
-            continue;
-        }
-
         inMST[u] = true;
         
         int neighborsU = adj[u].size();
@@ -41,9 +54,6 @@ void Prim(vector<vector<pair<int,int>>> &adj, int s){
         {
             int v = adj[u][i].first;
             int weight = adj[u][i].second;
-
-            // cout<<"The Nodes adjacent to "<< u <<" are: \t";
-            // cout<<"\t Node: "<< v<<"\t With Weight:"<<weight<< " and i: " << i << endl;
 
             if (inMST[v] == false && key[v] > weight)
             {
@@ -54,24 +64,13 @@ void Prim(vector<vector<pair<int,int>>> &adj, int s){
         }
     }
   
-    int total = 0; 
-    for (int i = 1; i < n; ++i)
-    {
-        printf("%d - %d\n", parent[i], i);
-        int len = adj[parent[i]].size();
-        for (int j = 0; j < len; j++)
-        {
-            if (adj[parent[i]][j].first == i){
-                total += adj[parent[i]][j].second;
-            }
-        }
-    }
-    cout << "Total Minimum Cost:" << total << endl;
+    printMST(adj, n, parent);
 
 }
 
 int main(int argc, char** argv){
 
+    // ---------- READ THE COMMAND LINES ----------
     int opt, f = 0, o = 0, i = 0, h;
     char* input; 
     char* output;
@@ -82,16 +81,16 @@ int main(int argc, char** argv){
             case 'f': f = 1; input = optarg; break;
             case 'o': o = 1; output = optarg; break;
             case 'i': i = atoi(optarg); break;
-            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice ");
-            case '?': fprintf(stderr, "Type -h for help\n");
+            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice\n");
+            case '?': fprintf(stderr, "Type -h for help\n"); return 1;
             default: cout<<endl; abort();
         }
     }
-
-
     if (f == 1) freopen(input, "r", stdin);
     if (o == 1) freopen(output, "w", stdout);
 
+    
+    // ---------- INITIALIZE THE LIST OF ADJACENCY ----------
     int n, m;
 	cin >> n >> m;
 
@@ -104,7 +103,7 @@ int main(int argc, char** argv){
         adj.push_back(row);
     }
 
-
+    // ---------- READ THE UNDIRECTED GRAPH ----------
 	for(int i =0; i< m; i++)
 	{
 		cin >> u >> v >> e;

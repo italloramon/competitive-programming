@@ -15,22 +15,18 @@ void FloydWarshall(int **dist, int n){
         {
             for  (j = 0; j < n; j++)
             {
-                if (dist[i][j] > (dist[i][k] + dist[k][j]) && (dist[k][j] != INFINITE && dist[i][k] != INFINITE))
-                {
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                }
+                if (dist[i][k] != INFINITE && dist[k][j] != INFINITE && dist[i][k] + dist[k][j] < dist[i][j])
+                dist[i][j] = dist[i][k] + dist[k][j];
             }
         }
     }
 
-    cout << "The following matrix shows the shortest "
-            "distances"
-            " between every pair of vertices \n";
+    // ---------- PRINT THE SOLUTION ----------
+    cout << "The following matrix shows the shortest distances between every pair of vertices" << endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             if (dist[i][j] == INFINITE)
-                cout << "INF"
-                     << " ";
+                cout << "INF" << " ";
             else
                 cout << dist[i][j] << "   ";
         }
@@ -40,6 +36,7 @@ void FloydWarshall(int **dist, int n){
 
 int main(int argc, char** argv){
 
+    // ---------- READ THE COMMAND LINES ----------
     int opt, f = 0, o = 0, i = 0, h;
     char* input; 
     char* output;
@@ -50,19 +47,18 @@ int main(int argc, char** argv){
             case 'f': f = 1; input = optarg; break;
             case 'o': o = 1; output = optarg; break;
             case 'i': i = atoi(optarg); break;
-            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice ");
-            case '?': fprintf(stderr, "Type -h for help\n");
+            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice\n");
+            case '?': fprintf(stderr, "Type -h for help\n"); return 1;
             default: cout<<endl; abort();
         }
     }
-
     if (f == 1) freopen(input, "r", stdin);
     if (o == 1) freopen(output, "w", stdout);
     
+    // ---------- INITIALIZE THE MATRIX OF MATRIX ----------
     int n, m;
 	cin >> n >> m;
 
-    vector<vector<pair<int,int>>> adj;
 	int u, v, e;
 
     int node = i;
@@ -70,7 +66,7 @@ int main(int argc, char** argv){
     dist = new int *[n];
     for (int i = 0; i < n; i++)
     {
-        dist[i] = new int[10];
+        dist[i] = new int[n];
     }
     for (int i = 0; i < n; i ++)
     {
@@ -80,6 +76,8 @@ int main(int argc, char** argv){
             else dist[i][j] = 0;
         }
     }
+
+    // ---------- READ THE DIRECTED GRAPH ----------
     for (int i = 0; i < m; i ++)
     {
         cin >> u >> v >> e;

@@ -2,13 +2,25 @@
 #include <vector>
 #include <queue>
 #include <getopt.h>
-#include <bits/stdc++.h>
 
 using namespace std;
 
 int INFINITE = 1e9;
 
-vector<int> Dijkstra(vector<vector<pair<int,int>>> &adj, int s){
+void printDist(vector<int> dist, int node, int len){
+    for (int i = 0; i < len; i++)
+    {
+        if (dist[i] != INFINITE)
+        {
+            cout << "Distance from " << node << " to " << i << " -> " << dist[i] << endl; 
+        } else
+        {
+            cout << "Distance from " << node << " to " << i << " -> INF" << endl;
+        }
+    }
+}
+
+void Dijkstra(vector<vector<pair<int,int>>> &adj, int s){
     vector<int> dist;
     vector<int> parent;
     int len = adj.size();
@@ -42,11 +54,13 @@ vector<int> Dijkstra(vector<vector<pair<int,int>>> &adj, int s){
             }
         }
     }
-    return dist;
+
+    printDist(dist, s, len);
 }
 
 int main(int argc, char** argv){
 
+    // ---------- READ THE COMMAND LINES ----------
     int opt, f = 0, o = 0, i = 0, h;
     char* input; 
     char* output;
@@ -57,17 +71,16 @@ int main(int argc, char** argv){
             case 'f': f = 1; input = optarg; break;
             case 'o': o = 1; output = optarg; break;
             case 'i': i = atoi(optarg); break;
-            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice ");
-            case '?': fprintf(stderr, "Type -h for help\n");
+            case 'h': printf("Usuage is\n -h : for help\n -f <input.in> : for indicates the file for input\n -o <output.out> : for indicate the file that will be saved the result\n -i: for indicate the start vertice\n");
+            case '?': fprintf(stderr, "Type -h for help\n"); return 1;
             default: cout<<endl; abort();
         }
     }
-
-
     if (f == 1) freopen(input, "r", stdin);
     if (o == 1) freopen(output, "w", stdout);
 
 
+    // ---------- INITIALIZE THE LIST OF ADJACENCY ----------
     int n, m;
 	cin >> n >> m;
 
@@ -80,19 +93,15 @@ int main(int argc, char** argv){
         adj.push_back(row);
     }
 
+    // ---------- READ THE DIRECTED GRAPH ----------
 	for(int i =0; i< m; i++)
 	{
 		cin >> u >> v >> e;
 		adj[u].push_back(make_pair(v, e));
 	}
 
-    vector<int> dist;
     int node = i;
-    dist = Dijkstra(adj, node);
-    for (int i = 0; i < dist.size(); i++)
-    {
-        cout << "Distance from " << node << " to " << i << " -> " << dist[i] << endl; 
-    }
+    Dijkstra(adj, node);
 
     return 0;
 }
