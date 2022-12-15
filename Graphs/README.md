@@ -4,12 +4,10 @@ Each algorithm have your own folder, in this folder you have the file *.cpp* wit
 
 ## Using the makefile
 
-You can download this repo as a ZIP, enter the folder of any of these algorithms, lets take the Dijkstra, open the terminal and type:
-
+You can download this repo as a ZIP, enter the folder of any of these algorithms, lets take the Dijkstra, open the terminal and type:<br><br>
     ```make```
 
-After this you should see a file *.out* with the name of the algorithm, in this case (***dijkstra.out***). Now lets execute this file, type:
-
+After this you should see a file *.out* with the name of the algorithm, in this case (***dijkstra.out***). Now lets execute this file, type:<br><br>
     ```./dijkstra.out -h```
 
 <br>
